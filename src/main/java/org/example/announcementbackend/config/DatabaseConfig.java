@@ -8,7 +8,7 @@ public class DatabaseConfig {
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:mysql://localhost:3306/announcement_backend";
         String username = "root";
-        String password = "1234";
+        String password = "root";
 
         return DriverManager.getConnection(url, username, password);
     }

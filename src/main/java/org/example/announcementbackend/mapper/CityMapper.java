@@ -16,12 +16,8 @@ public class CityMapper {
 
     public List <CityDto> toCityDtoList(List<City> cities) {
         List<CityDto> cityDtoList = new ArrayList<>();
-        for (City city : cities ){
-            CityDto cityDto = new CityDto();
-            cityDto.setCityId(city.getCityId());
-            cityDto.setName(city.getName());
-            cityDtoList.add(cityDto);
-        }
-        return cityDtoList;
+        return cities.stream()
+                .map(this::toCityDto)
+                .toList();
     }
 }
