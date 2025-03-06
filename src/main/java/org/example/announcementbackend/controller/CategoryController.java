@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 public class CategoryController {
     private final CategoryService categoryService = new CategoryService();
+
     @GetMapping
     public List<CategoryDto> getCategories() {
         return categoryService.getCategories();
