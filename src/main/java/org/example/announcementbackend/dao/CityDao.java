@@ -2,11 +2,12 @@ package org.example.announcementbackend.dao;
 
 import org.example.announcementbackend.config.DatabaseConfig;
 import org.example.announcementbackend.entity.City;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class CityDao {
     public List<City> findAll() {
         List<City> cities = new ArrayList<>();
@@ -18,7 +19,7 @@ public class CityDao {
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("city_id");
-                String name = resultSet.getString("city_name");
+                String name = resultSet.getString("name");
                 City city = new City(id, name);
                 cities.add(city);
 

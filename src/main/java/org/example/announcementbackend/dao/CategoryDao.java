@@ -2,12 +2,13 @@ package org.example.announcementbackend.dao;
 
 import org.example.announcementbackend.config.DatabaseConfig;
 import org.example.announcementbackend.entity.Category;
+import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class CategoryDao {
     public List<Category> findAll() {
         List < Category > categories = new ArrayList<>();

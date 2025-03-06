@@ -4,9 +4,10 @@ import org.example.announcementbackend.dto.CategoryDto;
 import org.example.announcementbackend.dto.CityDto;
 import org.example.announcementbackend.entity.Category;
 import org.example.announcementbackend.entity.City;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-
+@Component
 public class CategoryMapper {
     public CategoryDto toDto(Category category){
         CategoryDto categoryDto = new CategoryDto();

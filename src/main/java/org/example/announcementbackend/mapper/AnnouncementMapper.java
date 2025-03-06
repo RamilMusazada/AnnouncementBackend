@@ -2,10 +2,11 @@ package org.example.announcementbackend.mapper;
 
 import org.example.announcementbackend.dto.AnnouncementDto;
 import org.example.announcementbackend.entity.Announcement;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class AnnouncementMapper {
     private final CityMapper cityMapper = new CityMapper();
     private final CategoryMapper categoryMapper = new CategoryMapper();

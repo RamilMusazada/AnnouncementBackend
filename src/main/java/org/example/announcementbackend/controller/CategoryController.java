@@ -1,5 +1,6 @@
 package org.example.announcementbackend.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.announcementbackend.dto.CategoryDto;
 import org.example.announcementbackend.dto.CityDto;
 import org.example.announcementbackend.service.CategoryService;
@@ -12,8 +13,9 @@ import java.util.List;
 
 @RequestMapping("api/v1/categories")
 @RestController
+@RequiredArgsConstructor
 public class CategoryController {
-    private final CategoryService categoryService = new CategoryService();
+    private final CategoryService categoryService;
 
     @GetMapping
     public List<CategoryDto> getCategories() {

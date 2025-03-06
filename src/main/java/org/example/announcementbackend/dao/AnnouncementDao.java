@@ -4,13 +4,14 @@ import org.example.announcementbackend.config.DatabaseConfig;
 import org.example.announcementbackend.entity.Announcement;
 import org.example.announcementbackend.entity.Category;
 import org.example.announcementbackend.entity.City;
+import org.springframework.stereotype.Repository;
 
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class AnnouncementDao {
     public List<Announcement> findAll() {
         List<Announcement> announcements = new ArrayList<Announcement>();

@@ -2,10 +2,11 @@ package org.example.announcementbackend.mapper;
 
 import org.example.announcementbackend.dto.CityDto;
 import org.example.announcementbackend.entity.City;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Component
 public class CityMapper {
     public CityDto toCityDto(City city) {
         CityDto cityDto = new CityDto();
