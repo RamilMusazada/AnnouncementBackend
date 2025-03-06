@@ -1,6 +1,7 @@
 package org.example.announcementbackend.dao;
 
 import org.example.announcementbackend.config.DatabaseConfig;
+import org.example.announcementbackend.constant.QueryConstants;
 import org.example.announcementbackend.entity.Category;
 import org.springframework.stereotype.Repository;
 
@@ -15,8 +16,7 @@ public class CategoryDao {
         //try-with-resources
         try(Connection connection = DatabaseConfig.getConnection()){
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM categories";
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(QueryConstants.GET_CATEGORY_LIST_QUERY);
             while ( resultSet.next()){
                 Long id = resultSet.getLong("category_id");
                 String name = resultSet.getString("name");

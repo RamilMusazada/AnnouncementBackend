@@ -1,6 +1,7 @@
 package org.example.announcementbackend.dao;
 
 import org.example.announcementbackend.config.DatabaseConfig;
+import org.example.announcementbackend.constant.QueryConstants;
 import org.example.announcementbackend.entity.City;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,7 @@ public class CityDao {
         //try-with-resources
         try(Connection connection = DatabaseConfig.getConnection();) {
             Statement statement = connection.createStatement();
-            String query = "select * from cities";
-            ResultSet resultSet = statement.executeQuery(query);
+            ResultSet resultSet = statement.executeQuery(QueryConstants.GET_CITY_LIST_QUERY);
 
             while (resultSet.next()) {
                 Long id = resultSet.getLong("city_id");
