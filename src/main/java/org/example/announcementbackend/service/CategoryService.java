@@ -7,10 +7,7 @@ import org.example.announcementbackend.entity.Category;
 import org.example.announcementbackend.mapper.CategoryMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
