@@ -2,7 +2,8 @@ package org.example.announcementbackend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.announcementbackend.dao.AnnouncementDao;
-import org.example.announcementbackend.dto.AnnouncementDto;
+import org.example.announcementbackend.dto.AnnouncementRequest;
+import org.example.announcementbackend.dto.AnnouncementResponse;
 import org.example.announcementbackend.entity.Announcement;
 import org.example.announcementbackend.mapper.AnnouncementMapper;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,13 @@ public class AnnouncementService {
     private final AnnouncementMapper announcementMapper;
 
     @GetMapping
-    public List<AnnouncementDto> getAnnouncements() {
+    public List<AnnouncementResponse> getAnnouncements() {
         List<Announcement> announcements = announcementDao.findAll();
         return announcementMapper.toDtoList(announcements);
+    }
+
+    public void createAnnouncement(AnnouncementRequest request) {
+        Announcement announcement = announcementMapper.toEntity(request);
+        announcementDao.create(announcement);
     }
 }

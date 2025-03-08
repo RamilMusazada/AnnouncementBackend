@@ -2,6 +2,7 @@ package org.example.announcementbackend.dao;
 
 import org.example.announcementbackend.config.DatabaseConfig;
 import org.example.announcementbackend.constant.QueryConstants;
+import org.example.announcementbackend.entity.Announcement;
 import org.example.announcementbackend.entity.City;
 import org.springframework.stereotype.Repository;
 

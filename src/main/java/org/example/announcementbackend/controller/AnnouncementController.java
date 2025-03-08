@@ -1,11 +1,10 @@
 package org.example.announcementbackend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.announcementbackend.dto.AnnouncementDto;
+import org.example.announcementbackend.dto.AnnouncementRequest;
+import org.example.announcementbackend.dto.AnnouncementResponse;
 import org.example.announcementbackend.service.AnnouncementService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,8 +13,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnnouncementController {
     private final AnnouncementService announcementService;
+
     @GetMapping
-    public List<AnnouncementDto> getAllAnnouncements() {
+    public List<AnnouncementResponse> getAllAnnouncements() {
         return announcementService.getAnnouncements();
+    }
+    @PostMapping
+    public void create (@RequestBody AnnouncementRequest request) {
+        announcementService.createAnnouncement(request);
     }
 }

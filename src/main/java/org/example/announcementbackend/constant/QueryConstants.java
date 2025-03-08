@@ -25,4 +25,10 @@ public class QueryConstants {
                      LEFT JOIN cities c ON A.city_id = C.city_id
                      LEFT JOIN categories ct ON A.category_id = ct.category_id;
             """;
+    public static final String CREATE_ANNOUNCEMENT_QUERY = """
+             INSERT INTO announcements
+             (NAME, DESCRIPTION, ANNOUNCEMENT_NUMBER, PRICE, PHONE_NUMBER, seller_full_name, DELIVERY,
+              CITY_ID, CATEGORY_ID)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+             """;
 }

@@ -59,4 +59,23 @@ public class AnnouncementDao {
 
         return announcements;
     }
+
+    public void create(Announcement announcement) {
+        try (Connection connection = DatabaseConfig.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
+            preparedStatement.setString(1, announcement.getName());
+            preparedStatement.setString(2, announcement.getDescription());
+            preparedStatement.setLong(3, announcement.getAnnouncementNumber());
+            preparedStatement.setDouble(4, announcement.getPrice());
+            preparedStatement.setString(5, announcement.getPhoneNumber());
+            preparedStatement.setString(6, announcement.getSellerFullName());
+            preparedStatement.setBoolean(7, announcement.getDelivery());
+            preparedStatement.setLong(8, announcement.getCity().getCityId());
+            preparedStatement.setLong(9, announcement.getCategory().getCategoryId());
+
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+        }
+    }
 }

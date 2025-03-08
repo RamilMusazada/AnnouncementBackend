@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class AnnouncementDto {
+public class AnnouncementResponse {
     private Long announcementId;
     private String name;
     private String description;
