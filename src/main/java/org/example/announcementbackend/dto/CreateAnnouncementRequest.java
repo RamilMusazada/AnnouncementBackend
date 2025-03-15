@@ -3,7 +3,7 @@ package org.example.announcementbackend.dto;
 import lombok.Data;
 
 @Data
-public class AnnouncementRequest {
+public class CreateAnnouncementRequest {
     private String name;
     private String description;
     private Double price;
