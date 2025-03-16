@@ -1,5 +1,6 @@
 package org.example.announcementbackend.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.announcementbackend.config.DatabaseConfig;
 import org.example.announcementbackend.constant.QueryConstants;
 import org.example.announcementbackend.entity.Announcement;
@@ -13,14 +14,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Repository
 public class AnnouncementDao {
     public List<Announcement> findAll() {
-        List<Announcement> announcements = new ArrayList<Announcement>();
+        List<Announcement> announcements = new ArrayList<>();
 
         try (Connection connection = DatabaseConfig.getConnection()) {
 
             Statement statement = connection.createStatement();
+            log.info("Get announcement list query  :{} " , QueryConstants.GET_ANNOUNCEMENT_LIST_QUERY);
             ResultSet resultSet = statement.executeQuery(QueryConstants.GET_ANNOUNCEMENT_LIST_QUERY);
             while (resultSet.next()) {
                 Announcement announcement = new Announcement();
@@ -54,7 +57,7 @@ public class AnnouncementDao {
                 announcements.add(announcement);
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            log.error(e.getMessage(),e);
         }
 
         return announcements;
@@ -62,6 +65,7 @@ public class AnnouncementDao {
 
     public void create(Announcement announcement) {
         try (Connection connection = DatabaseConfig.getConnection()) {
+            log.info("Create announcement query :{} " , QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
             preparedStatement.setString(1, announcement.getName());
             preparedStatement.setString(2, announcement.getDescription());
@@ -75,11 +79,13 @@ public class AnnouncementDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            log.error(e.getMessage(), e);
         }
     }
+
     public void update(Announcement announcement) {
         try (Connection connection = DatabaseConfig.getConnection()) {
+            log.info("Update announcement query :{} " , QueryConstants.UPDATE_ANNOUNCEMENT_QUERY);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.UPDATE_ANNOUNCEMENT_QUERY);
             preparedStatement.setString(1, announcement.getName());
             preparedStatement.setString(2, announcement.getDescription());
@@ -90,23 +96,25 @@ public class AnnouncementDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            log.error(e.getMessage(), e);
         }
     }
 
     public void delete(Long announcementId) {
         try (Connection connection = DatabaseConfig.getConnection()) {
+            log.info("Delete announcement query :{} ", QueryConstants.DELETE_ANNOUNCEMENT_QUERY);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.DELETE_ANNOUNCEMENT_QUERY);
             preparedStatement.setLong(1, announcementId);
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            log.error(e.getMessage(), e);
         }
     }
 
     public Announcement getById(Long announcementId) {
         try (Connection connection = DatabaseConfig.getConnection()) {
+        log.info("Get announcement by id query : {}" , QueryConstants.GET_ANNOUNCEMENT_BY_ID );
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.GET_ANNOUNCEMENT_BY_ID);
             preparedStatement.setLong(1, announcementId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -143,7 +151,7 @@ public class AnnouncementDao {
                 return announcement;
             }
         } catch (SQLException e) {
-            e.printStackTrace(System.out);
+            log.error(e.getMessage(), e);
         }
 
         return null;

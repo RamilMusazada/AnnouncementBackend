@@ -1,6 +1,7 @@
 package org.example.announcementbackend.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.announcementbackend.dao.CategoryDao;
 import org.example.announcementbackend.dto.CategoryDto;
 import org.example.announcementbackend.entity.Category;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -18,7 +20,9 @@ public class CategoryService {
 
     @GetMapping
     public List<CategoryDto> getCategories() {
+        log.info("Get categories");
         List<Category> categories = categoryDao.findAll();
+        log.info("Categories found  {}", categories);
         return categoryMapper.toDtoList(categories);
     }
 }
