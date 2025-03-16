@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Repository
 public class CityDao {
@@ -17,9 +18,9 @@ public class CityDao {
         log.info("Getting cities from DB");
         List<City> cities = new ArrayList<>();
         //try-with-resources
-        try(Connection connection = DatabaseConfig.getConnection();) {
+        try (Connection connection = DatabaseConfig.getConnection();) {
             Statement statement = connection.createStatement();
-            log.error("Get city list query : {}" , QueryConstants.GET_CATEGORY_LIST_QUERY);
+            log.error("Get city list query : {}", QueryConstants.GET_CATEGORY_LIST_QUERY);
             ResultSet resultSet = statement.executeQuery(QueryConstants.GET_CITY_LIST_QUERY);
 
             while (resultSet.next()) {
@@ -30,7 +31,7 @@ public class CityDao {
 
             }
         } catch (SQLException e) {
-            log.error(e.getMessage(),e);
+            throw new RuntimeException(e);
         }
         return cities;
     }

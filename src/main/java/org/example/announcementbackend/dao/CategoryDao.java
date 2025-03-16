@@ -10,25 +10,26 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Slf4j
 @Repository
 public class CategoryDao {
     public List<Category> findAll() {
         log.info("Getting categories from DB");
-        List < Category > categories = new ArrayList<>();
+        List<Category> categories = new ArrayList<>();
         //try-with-resources
-        try(Connection connection = DatabaseConfig.getConnection()){
+        try (Connection connection = DatabaseConfig.getConnection()) {
             Statement statement = connection.createStatement();
-            log.info("Get category list query : {}" , QueryConstants.GET_CATEGORY_LIST_QUERY);
+            log.info("Get category list query : {}", QueryConstants.GET_CATEGORY_LIST_QUERY);
             ResultSet resultSet = statement.executeQuery(QueryConstants.GET_CATEGORY_LIST_QUERY);
-            while ( resultSet.next()){
+            while (resultSet.next()) {
                 Long id = resultSet.getLong("category_id");
                 String name = resultSet.getString("name");
                 Category category = new Category(id, name);
                 categories.add(category);
             }
-        } catch ( SQLException e ) {
-            log.error(e.getMessage(),e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
         return categories;
     }

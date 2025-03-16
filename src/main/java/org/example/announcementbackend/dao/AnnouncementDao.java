@@ -13,6 +13,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Repository
@@ -23,7 +24,7 @@ public class AnnouncementDao {
         try (Connection connection = DatabaseConfig.getConnection()) {
 
             Statement statement = connection.createStatement();
-            log.info("Get announcement list query  :{} " , QueryConstants.GET_ANNOUNCEMENT_LIST_QUERY);
+            log.info("Get announcement list query  :{} ", QueryConstants.GET_ANNOUNCEMENT_LIST_QUERY);
             ResultSet resultSet = statement.executeQuery(QueryConstants.GET_ANNOUNCEMENT_LIST_QUERY);
             while (resultSet.next()) {
                 Announcement announcement = new Announcement();
@@ -57,7 +58,7 @@ public class AnnouncementDao {
                 announcements.add(announcement);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage(),e);
+            throw new RuntimeException(e);
         }
 
         return announcements;
@@ -65,7 +66,7 @@ public class AnnouncementDao {
 
     public void create(Announcement announcement) {
         try (Connection connection = DatabaseConfig.getConnection()) {
-            log.info("Create announcement query :{} " , QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
+            log.info("Create announcement query :{} ", QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.CREATE_ANNOUNCEMENT_QUERY);
             preparedStatement.setString(1, announcement.getName());
             preparedStatement.setString(2, announcement.getDescription());
@@ -79,13 +80,13 @@ public class AnnouncementDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
     public void update(Announcement announcement) {
         try (Connection connection = DatabaseConfig.getConnection()) {
-            log.info("Update announcement query :{} " , QueryConstants.UPDATE_ANNOUNCEMENT_QUERY);
+            log.info("Update announcement query :{} ", QueryConstants.UPDATE_ANNOUNCEMENT_QUERY);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.UPDATE_ANNOUNCEMENT_QUERY);
             preparedStatement.setString(1, announcement.getName());
             preparedStatement.setString(2, announcement.getDescription());
@@ -96,7 +97,7 @@ public class AnnouncementDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -108,13 +109,13 @@ public class AnnouncementDao {
 
             preparedStatement.execute();
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 
-    public Announcement getById(Long announcementId) {
+    public Optional<Announcement> findByID(Long announcementId) {
         try (Connection connection = DatabaseConfig.getConnection()) {
-        log.info("Get announcement by id query : {}" , QueryConstants.GET_ANNOUNCEMENT_BY_ID );
+            log.info("Get announcement by id query : {}", QueryConstants.GET_ANNOUNCEMENT_BY_ID);
             PreparedStatement preparedStatement = connection.prepareStatement(QueryConstants.GET_ANNOUNCEMENT_BY_ID);
             preparedStatement.setLong(1, announcementId);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -148,12 +149,12 @@ public class AnnouncementDao {
                 Category category = new Category(categoryId, categoryName);
                 announcement.setCategory(category);
 
-                return announcement;
+                return Optional.of(announcement);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
 
-        return null;
+        return Optional.empty();
     }
 }

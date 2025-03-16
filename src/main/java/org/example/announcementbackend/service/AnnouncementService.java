@@ -7,11 +7,13 @@ import org.example.announcementbackend.dto.CreateAnnouncementRequest;
 import org.example.announcementbackend.dto.AnnouncementResponse;
 import org.example.announcementbackend.dto.UpdateAnnouncementRequest;
 import org.example.announcementbackend.entity.Announcement;
+import org.example.announcementbackend.exception.NotFoundException;
 import org.example.announcementbackend.mapper.AnnouncementMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -47,8 +49,9 @@ public class AnnouncementService {
     }
 
     public AnnouncementResponse getById(Long announcementId) {
-        Announcement announcement = announcementDao.getById(announcementId);
-        log.info("Announcement found: {}", announcement);
+        Optional<Announcement> optAnnouncement = announcementDao.findByID(announcementId);
+        Announcement announcement = optAnnouncement.orElseThrow(() ->
+                new NotFoundException("Announcement is not found with id: " + announcementId));
 
         return announcementMapper.toResponse(announcement);
     }
